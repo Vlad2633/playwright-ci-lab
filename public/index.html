@@ -1,22 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Локальна сторінка</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    #userPanel { display: none; margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    .error-message { color: red; margin-top: 10px; }
+    footer { margin-top: 40px; background: #f2f2f2; padding: 10px; }
+  </style>
 </head>
 <body>
-  <h1>Ласкаво просимо на локальній зміненій сторінці!</h1>
+  <h1>Вітаємо на локальній зміненій сторінці!</h1>
+
   <form id="loginForm">
-    <input id="username" type="text" placeholder="Ім'я юзера" required />
+    <input id="username" type="text" placeholder="Ім'я користувача" required />
     <input id="password" type="password" placeholder="Пароль" required />
-    <button id="loginButton" type="submit">Авторизуватися</button>
+    <button id="loginButton" type="submit">Увійти</button>
   </form>
-  <p id="successMessage" style="display: none;">Успішний вхід!</p>
+
+  <p id="successMessage" style="display: none; color: green;">Успішний вхід!</p>
+  <div class="error-message"></div>
+
+  <div id="userPanel">
+    <p>Вітаємо, користувачу!</p>
+  </div>
+
+  <footer>
+    <p>© 2025 My Local Site</p>
+  </footer>
+
   <script>
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
+    const form = document.getElementById('loginForm');
+    const success = document.getElementById('successMessage');
+    const error = document.querySelector('.error-message');
+    const panel = document.getElementById('userPanel');
+
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-      document.getElementById('successMessage').style.display = 'block';
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      success.style.display = 'none';
+      error.textContent = '';
+      panel.style.display = 'none';
+
+      if (!username || !password) {
+        error.textContent = 'Заповніть усі поля';
+        return;
+      }
+
+      if (password.length < 4) {
+        error.textContent = 'Пароль занадто короткий';
+        return;
+      }
+
+      success.style.display = 'block';
+      panel.style.display = 'block';
     });
   </script>
 </body>

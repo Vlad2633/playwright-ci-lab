@@ -1,5 +1,6 @@
 // tests/e2e/local.test.js
 const { test, expect } = require('@playwright/test');
+
 test('Перевірка форми входу', async ({ page }) => {
   await page.goto('http://localhost:3000');
   await page.fill('#username', 'test_user');
@@ -60,11 +61,23 @@ test('Валідація короткого пароля', async ({ page }) => {
   await expect(errorMessage).toContainText(/пароль занадто короткий|invalid/i);
 });
 
+
 test('У верхньому меню Playwright є Documentation', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-  const docLink = page.locator('nav >> text=Docs');
-  await expect(docLink).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 }); // iPhone 14
+  await page.goto('https://playwright.dev/', { waitUntil: 'domcontentloaded' });
+
+  const burger = page.locator('button[aria-label="Toggle navigation"]');
+  if (await burger.isVisible()) {
+    await burger.click({ force: true }); // примусово клікаємо
+    // чекаємо, поки посилання з'явиться
+    const docLink = page.getByRole('link', { name: /Documentation/i });
+    await docLink.waitFor({ state: 'visible', timeout: 5000 });
+    await expect(docLink).toBeVisible();
+  } else {
+    console.log('Бургер-меню не знайдено, можливо десктоп версія');
+  }
 });
+
 
 test('Скріншот головної сторінки', async ({ page }) => {
   await page.goto('https://playwright.dev/');

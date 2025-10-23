@@ -6,3 +6,5 @@
 /playwright-report
 /video
 /screenshots
+
+# --- Temporary files added for CI check ---  

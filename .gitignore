@@ -1,0 +1,8 @@
+# Node
+/node_modules
+
+# Playwright
+/test-results
+/playwright-report
+/video
+/screenshots

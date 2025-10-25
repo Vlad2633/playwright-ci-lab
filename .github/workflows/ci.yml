@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - testing-ci-process
   pull_request:
     branches:
       - main
+      - testing-ci-process
 
 jobs:
   build:

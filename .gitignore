@@ -2,8 +2,7 @@
 /node_modules
 
 # Playwright
-/test-results
 /playwright-report
 /video
-
+/test-results
 # --- Temporary files added for CI check ---

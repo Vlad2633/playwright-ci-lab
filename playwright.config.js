@@ -11,6 +11,7 @@ export default defineConfig({
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
     headless: false,
+	snapshotPathTemplate: '{testDir}/{testFileDir}/{testFileName}-snapshots/{testName}{ext}',
   },
 
   // Три конфігурації: Chrome, Firefox і iPhone 14 (мобільна версія)
